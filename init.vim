@@ -12,6 +12,8 @@ Plug 'nyoom-engineering/oxocarbon.nvim'
 Plug 'https://github.com/windwp/nvim-autopairs'
 Plug 'https://github.com/github/copilot.vim'
 
+Plug 'iamcco/markdown-preview.nvim'
+
 Plug 'neovim/nvim-lspconfig'
 
 Plug 'hrsh7th/nvim-cmp'
@@ -73,5 +75,30 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 require('lspconfig').pyright.setup {
   capabilities = capabilities
+}
+
+require('lspconfig').marksman.setup {
+  capabilities = capabilities
+}
+
+require('lspconfig').lua_ls.setup {
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        globals = { 'vim' },
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
 }
 EOF
